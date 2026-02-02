@@ -1,0 +1,21 @@
+name: Build APK
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Build with Buildozer
+        uses: ArtemSBulgakov/buildozer-action@v1
+        with:
+          buildozer_version: stable
+          command: buildozer android debug
+          repository_display_name: Meu App de Treinos
+
+      - name: Upload APK
+        uses: actions/upload-artifact@v2
+        with:
+          name: meu-app-debug
+          path: bin/*.apk
